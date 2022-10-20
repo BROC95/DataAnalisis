@@ -1,0 +1,7 @@
+FROM postgres
+ENV POSTGRES_PASSWORD  admin2
+ENV POSTGRES_DB  brey2
+ENV  POSTGRES_USER   brey
+EXPOSE 5432:5432
+# RUN -p 5432:5432 
+# COPY . /docker-entrypoint-initdb.d/

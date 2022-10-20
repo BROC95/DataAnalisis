@@ -1,0 +1,90 @@
+# version: "3.7"
+
+# services:
+#   app:
+#     image: node:12-alpine
+#     command: sh -c "yarn install && yarn run dev"
+#     ports:
+#       - 3000:3000
+#     working_dir: /app
+#     volumes:
+#       - ./:/app
+#     environment:
+#       MYSQL_HOST: mysql
+#       MYSQL_USER: root
+#       MYSQL_PASSWORD: secret
+#       MYSQL_DB: todos
+
+#   mysql:
+#     image: mysql:5.7
+#     volumes:
+#       - todo-mysql-data:/var/lib/mysql
+#     environment:
+#       MYSQL_ROOT_PASSWORD: secret
+#       MYSQL_DATABASE: todos
+
+# volumes:
+#   todo-mysql-data:
+   
+#  Version 1 
+
+# version: "3.8"
+# services:
+#   db:
+#     image: "postgres:"
+#     # container_name: mycontainername
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - ./pgdata:/var/lib/postgresql/data
+#       - db:/var/lib/postgresql/data
+#     environment:
+#       - POSTGRES_USER="${DB_USER}"
+#       - POSTGRES_PASSWORD="${DB_PASSWORD}"
+#       - POSTGRES_DB="${DB_NAME}"
+    
+#     networks:
+#       - app-tier
+
+  
+#   app:
+#    build: .
+#    depends_on:
+#     - db
+#    networks:
+#     - app-tier
+
+# networks:
+#   app-tier:
+#     driver: bridge    
+
+
+# volumes:
+#     db:
+#       driver: local
+
+
+
+version: "3.8"
+services:
+  db:
+    build: ./database/
+    networks:
+      - app-tier
+
+  
+  app:
+   build: .
+   depends_on:
+    - db
+   networks:
+    - app-tier
+
+networks:
+  app-tier:
+    driver: bridge    
+
+
+volumes:
+    db:
+      driver: local
